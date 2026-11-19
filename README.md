@@ -37,7 +37,7 @@ python -m http.server 8000
 
 - 中文、英文都直接写在 `index.html` 里：`<span class="zh">…</span>` 与 `<span class="en">…</span>` 成对出现。
 - 数字在 `data-count` 属性里；单位与说明在相邻元素。
-- 每条数据必须能在 `docs/data-card.md` 找到来源；新增数据先补来源再上页面。
+- 每条数据必须能在 `数据来源.md`（提交包内）找到来源；新增数据先补来源再上页面。
 
 ## 交互清单（写“作品说明”时对照）
 
