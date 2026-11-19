@@ -12,28 +12,14 @@
 - 如果团队还用了别的 AI 工具（翻译、绘图、写作），补进 `docs/submission.md` 的 AI 说明。
 - 改完刷新页面，切到 EN 再读一遍。
 
-## 2. 部署拿链接（20 分钟）
+## 2. 部署（已完成）
 
-```powershell
-cd C:\Users\38397\Desktop\蓝色B2
-git init
-git add .
-git commit -m "seagrass scroll story"
-git branch -M main
-git remote add origin https://github.com/Wenmilqz/seagrass-five-names.git
-git push -u origin main
-```
+**https://wenmilqz.github.io/seagrass-five-names/** 已经上线，桌面和手机都测过。
 
-GitHub 仓库 → **Settings → Pages → Source: Deploy from a branch → main / (root) → Save**。
-1–2 分钟后访问：
-
-```
-https://wenmilqz.github.io/seagrass-five-names/
-```
-
-- 先在**无痕窗口**打开，再用手机 4G 打开一次。
-- 国内访问 GitHub Pages 偶尔慢；录屏时用本地 `index.html`，对外链接仍用 Pages。
-- 如果 GitHub 登录/推送卡住：把整个文件夹拖到 Netlify Drop，或传到 Cloudflare Pages，拿到任何公开链接都算数。
+- 不需要再改 Pages 设置，也不用执行 git 命令。
+- 后续改内容：直接在 GitHub 网页编辑文件并 Commit，约 1 分钟自动重建。
+- 国内访问 GitHub Pages 偶尔慢；录屏时用本地 `index.html`，对外链接用 Pages。
+- 提交前用无痕窗口 + 手机 4G 各打开一次。
 
 ## 3. 录屏（30–60 分钟）
 
