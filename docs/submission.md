@@ -1,9 +1,9 @@
-# 提交材料（B 赛道 · 交互式网页）
+﻿# 提交材料（B 赛道 · 交互式网页）
 
 > 截止：2026-11-19 24:00　收件：fanyuan_keyan@163.com
 > 团队：组一辈子乐队（2 人）　队长：待补
 > 压缩包与邮件主题：`蓝色创想+B赛道+组一辈子乐队`
-> 测试链接：`https://wenmilqz.github.io/seagrass-five-names/`
+> 已上线：`https://wenmilqz.github.io/seagrass-five-names/`
 
 ## 一、作品说明（200–400 字）
 
@@ -30,7 +30,7 @@ AI 参与环节：①资料检索，整理荣成海草房、海草床修复与�
 | # | 材料 | 文件名 | 状态 |
 |---|---|---|---|
 | 1 | 演示录屏（1080p，90–120 秒，中文字幕） | `B赛道+队长姓名+海草房与海草床.mp4` | ☐ 待录 |
-| 2 | 可访问测试链接 | `https://wenmilqz.github.io/seagrass-five-names/` | ☐ 待部署 |
+| 2 | 可访问测试链接 | `https://wenmilqz.github.io/seagrass-five-names/` | ☑ 已上线 |
 | 3 | 源代码 | `index.html` + `assets/` | ☑ 已完成 |
 | 4 | 作品说明（200–400 字） | `B赛道+队长姓名+作品说明.docx` | ☑ 见上 |
 | 5 | AI 创作说明（300–500 字） | `B赛道+队长姓名+AI创作说明.docx` | ☑ 见上 |
