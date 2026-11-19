@@ -51,15 +51,26 @@
       master.connect(actx.destination);
 
       // 低频海浪：布朗噪声 + 缓慢起伏
-      const secs = 6;
+      const secs = 20;
+      const fade = Math.floor(actx.sampleRate * 0.75);
       const len = Math.floor(actx.sampleRate * secs);
       const buffer = actx.createBuffer(1, len, actx.sampleRate);
       const data = buffer.getChannelData(0);
+      const raw = new Float32Array(len + fade);
       let last = 0;
-      for (let i = 0; i < len; i++) {
+      for (let i = 0; i < raw.length; i++) {
         const white = Math.random() * 2 - 1;
         last = (last + 0.02 * white) / 1.02;
-        data[i] = last * 3.2;
+        raw[i] = last * 3.2;
+      }
+      // 首尾交叉淡化，避免 20 秒循环点的爆音
+      for (let i = 0; i < len; i++) {
+        if (i < fade) {
+          const t = i / fade;
+          data[i] = raw[i] * t + raw[len + i] * (1 - t);
+        } else {
+          data[i] = raw[i];
+        }
       }
       const noise = actx.createBufferSource();
       noise.buffer = buffer;
