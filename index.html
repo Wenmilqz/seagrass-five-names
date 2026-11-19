@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="zh-CN" data-lang="zh">
 <head>
 <meta charset="utf-8">
@@ -27,9 +27,15 @@
     <span class="brand-cn en">One plant, five names</span>
   </a>
 </header>
-<button id="langBtn" class="lang-btn" type="button" aria-label="切换语言 / Switch language">
-  <span class="lang-opt lang-zh">中</span><span class="lang-sep">/</span><span class="lang-opt lang-en">EN</span>
-</button>
+<div class="controls">
+  <button id="soundBtn" class="sound-btn" type="button" aria-pressed="false" aria-label="开启环境音 / Play ambient sound">
+    <span class="sound-icon" aria-hidden="true"><i></i><i></i><i></i></span>
+    <span class="sound-label zh">环境音</span><span class="sound-label en">Ambient</span>
+  </button>
+  <button id="langBtn" class="lang-btn" type="button" aria-label="切换语言 / Switch language">
+    <span class="lang-opt lang-zh">中</span><span class="lang-sep">/</span><span class="lang-opt lang-en">EN</span>
+  </button>
+</div>
 
 <nav class="rail" aria-label="章节导航 / Chapters">
   <a href="#roof"><span class="dot"></span><span class="rail-label"><b>01</b> <span class="zh">屋顶</span><span class="en">Roof</span></span></a>
