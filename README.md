@@ -24,27 +24,15 @@ python -m http.server 8000
 # 打开 http://localhost:8000
 ```
 
-## 部署到 GitHub Pages（Wenmilqz）
+## 在线地址
 
-```powershell
-cd C:\Users\38397\Desktop\蓝色B2
-git init
-git add .
-git commit -m "seagrass scroll story"
-git branch -M main
-git remote add origin https://github.com/Wenmilqz/seagrass-five-names.git
-git push -u origin main
-```
+**https://wenmilqz.github.io/seagrass-five-names/**
 
-然后在 GitHub 仓库：**Settings → Pages → Source: Deploy from a branch → main / (root) → Save**。
-约 1–2 分钟后地址为：
+仓库：https://github.com/Wenmilqz/seagrass-five-names
 
-```
-https://wenmilqz.github.io/seagrass-five-names/
-```
+已部署完成。后续改内容，直接在 GitHub 网页上编辑文件并 Commit，Pages 约 1 分钟后自动重建；不需要再执行 git 命令。
 
-> 仓库名建议全小写。若 404，先确认 Pages 里显示 “Your site is live”，再强制刷新。
-> 国内访问 GitHub Pages 偶尔不稳，录屏时用本地文件打开最稳；对外链接仍用 Pages。
+> 国内访问 GitHub Pages 偶尔不稳；录屏时用本地 `index.html` 最稳，对外链接仍用 Pages。
 
 ## 改文案 / 改数据
 
