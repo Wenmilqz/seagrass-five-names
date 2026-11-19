@@ -1,0 +1,7 @@
+﻿.edge-*/
+shots/
+dist/
+tools/
+*.zip
+.DS_Store
+Thumbs.db
