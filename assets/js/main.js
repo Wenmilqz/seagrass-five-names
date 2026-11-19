@@ -32,6 +32,121 @@
     syncLang();
   });
 
+  /* ---------- ambient sound (Web Audio, no external file) ---------- */
+  const soundBtn = document.getElementById('soundBtn');
+  const AudioCtor = window.AudioContext || window.webkitAudioContext;
+  if (soundBtn && AudioCtor) {
+    let actx = null, master = null, enabled = false, built = false, bellTimer = null;
+
+    const paint = () => {
+      soundBtn.classList.toggle('playing', enabled);
+      soundBtn.setAttribute('aria-pressed', String(enabled));
+      soundBtn.setAttribute('aria-label', enabled ? '关闭环境音 / Mute ambient sound' : '开启环境音 / Play ambient sound');
+    };
+
+    const build = () => {
+      actx = new AudioCtor();
+      master = actx.createGain();
+      master.gain.value = 0;
+      master.connect(actx.destination);
+
+      // 低频海浪：布朗噪声 + 缓慢起伏
+      const secs = 6;
+      const len = Math.floor(actx.sampleRate * secs);
+      const buffer = actx.createBuffer(1, len, actx.sampleRate);
+      const data = buffer.getChannelData(0);
+      let last = 0;
+      for (let i = 0; i < len; i++) {
+        const white = Math.random() * 2 - 1;
+        last = (last + 0.02 * white) / 1.02;
+        data[i] = last * 3.2;
+      }
+      const noise = actx.createBufferSource();
+      noise.buffer = buffer;
+      noise.loop = true;
+      const hp = actx.createBiquadFilter(); hp.type = 'highpass'; hp.frequency.value = 40;
+      const lp = actx.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 420; lp.Q.value = 0.6;
+      const ng = actx.createGain(); ng.gain.value = 0.5;
+      noise.connect(hp); hp.connect(lp); lp.connect(ng); ng.connect(master);
+
+      const swell = actx.createOscillator();
+      swell.frequency.value = 0.055;
+      const swellAmt = actx.createGain(); swellAmt.gain.value = 0.22;
+      swell.connect(swellAmt); swellAmt.connect(ng.gain);
+      swell.start(); noise.start();
+
+      // 低频铺底：两个八度的 D 与五度
+      const pad = actx.createGain(); pad.gain.value = 0.05;
+      const padFilter = actx.createBiquadFilter(); padFilter.type = 'lowpass'; padFilter.frequency.value = 720;
+      pad.connect(padFilter); padFilter.connect(master);
+      [146.83, 220.0, 293.66, 369.99].forEach((f, i) => {
+        const o = actx.createOscillator();
+        o.type = 'sine'; o.frequency.value = f; o.detune.value = (i - 1.5) * 5;
+        const g = actx.createGain(); g.gain.value = i === 0 ? 0.9 : 0.32;
+        o.connect(g); g.connect(pad); o.start();
+      });
+
+      built = true;
+    };
+
+    const bell = () => {
+      if (!enabled || !actx) return;
+      const notes = [587.33, 739.99, 880.0, 1174.66];
+      const f = notes[Math.floor(Math.random() * notes.length)];
+      const t = actx.currentTime;
+      const o = actx.createOscillator(); o.type = 'sine'; o.frequency.value = f;
+      const g = actx.createGain();
+      g.gain.setValueAtTime(0.0001, t);
+      g.gain.linearRampToValueAtTime(0.045, t + 0.08);
+      g.gain.exponentialRampToValueAtTime(0.0001, t + 4.2);
+      o.connect(g); g.connect(master);
+      o.start(t); o.stop(t + 4.4);
+    };
+
+    const scheduleBell = () => {
+      clearTimeout(bellTimer);
+      bellTimer = setTimeout(() => {
+        if (!enabled) return;
+        bell();
+        scheduleBell();
+      }, 9000 + Math.random() * 9000);
+    };
+
+    const on = () => {
+      if (!built) build();
+      if (actx.state === 'suspended') actx.resume();
+      enabled = true;
+      master.gain.cancelScheduledValues(actx.currentTime);
+      master.gain.setTargetAtTime(0.18, actx.currentTime, 1.2);
+      paint();
+      bell();
+      scheduleBell();
+    };
+
+    const off = () => {
+      enabled = false;
+      clearTimeout(bellTimer);
+      if (actx) {
+        master.gain.cancelScheduledValues(actx.currentTime);
+        master.gain.setTargetAtTime(0.0001, actx.currentTime, 0.35);
+        setTimeout(() => {
+          if (!enabled && actx.state === 'running') actx.suspend();
+        }, 1000);
+      }
+      paint();
+    };
+
+    soundBtn.addEventListener('click', () => { enabled ? off() : on(); });
+    document.addEventListener('visibilitychange', () => {
+      if (!actx || !enabled) return;
+      if (document.hidden) actx.suspend();
+      else actx.resume();
+    });
+    paint();
+  } else if (soundBtn) {
+    soundBtn.hidden = true;
+  }
+
   /* ---------- hero grass ---------- */
   const hero = document.getElementById('heroGrass');
   if (hero) {
