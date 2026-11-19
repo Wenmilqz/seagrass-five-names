@@ -12,7 +12,6 @@ index.html                 单页入口（无构建步骤）
 assets/css/style.css       全部样式
 assets/js/main.js          滚动叙事、计数器、名字卡、中英切换
 assets/photos/             两张 CC0 / 公有领域照片
-docs/                      决策记录、数据卡、说明文、录屏脚本
 ```
 
 ## 本地预览
@@ -50,6 +49,7 @@ python -m http.server 8000
 6. 中英一键切换（localStorage 记忆）
 7. 修复条形图生长
 8. 海底照片视差 + 海草摆动
+9. 环境音开关：Web Audio 实时合成的海浪、低频铺底与稀疏钟音，无外部音源；默认静音，点击后淡入
 
 ## 无障碍与性能
 
